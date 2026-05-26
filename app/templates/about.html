@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Habit Tracker</title>
+  
+  <style>
+    /* Reset and general page styling */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fb;
+      color: #333;
+      padding: 40px 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      color: #7f8c8d;
+    }
+
+    /* CSS GRID CONTAINER */
+    .habit-grid {
+      display: grid;
+      /* Automatically creates columns that are at least 140px wide, scaling to fit the screen */
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* HABIT BOX DEFAULT STATE (Not Done / Red) */
+    .habit-box {
+      background-color: #e74c3c; /* Flat vibrant red */
+      color: white;
+      height: 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 15px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      user-select: none;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      transition: background-color 0.25s ease, transform 0.1s ease, box-shadow 0.25s ease;
+    }
+
+    /* Small subtext inside the box */
+    .habit-box span {
+      font-size: 0.8rem;
+      font-weight: 400;
+      margin-top: 8px;
+      opacity: 0.9;
+    }
+
+    /* Hover effect */
+    .habit-box:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    /* ACTIVE STATE (Done / Green) */
+    .habit-box.completed {
+      background-color: #2ecc71; /* Flat vibrant green */
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Daily Habit Tracker</h1>
+    <p>Click on a habit to toggle your daily completion status</p>
+  </header>
+
+  <!-- The Responsive CSS Grid -->
+  <div class="habit-grid">
+    <div class="habit-box">
+      Workout
+      <span>Tap to toggle</span>
+    </div>
+    <div class="habit-box">
+      Read 10 Pages
+      <span>Tap to toggle</span>
+    </div>
+    <div class="habit-box">
+      Meditation
+      <span>Tap to toggle</span>
+    </div>
+    <div class="habit-box">
+      Drink Water
+      <span>Tap to toggle</span>
+    </div>
+    <div class="habit-box">
+      Coding
+      <span>Tap to toggle</span>
+    </div>
+    <div class="habit-box">
+      8h Sleep
+      <span>Tap to toggle</span>
+    </div>
+    <div class="habit-box">
+      Healthy Meal
+      <span>Tap to toggle</span>
+    </div>
+    <div class="habit-box">
+      Journal
+      <span>Tap to toggle</span>
+    </div>
+  </div>
+
+  <script>
+    // Target the shared grid parent element
+    const habitGrid = document.querySelector('.habit-grid');
+
+    // Use event delegation to catch clicks on any habit box inside the grid
+    habitGrid.addEventListener('click', (event) => {
+      // Find the closest parent with the class .habit-box (in case they click the inner span text)
+      const targetBox = event.target.closest('.habit-box');
+      
+      // If a valid habit box was clicked, toggle its complete status
+      if (targetBox) {
+        targetBox.classList.toggle('completed');
+      }
+    });
+  </script>
+
+</body>
+</html>
