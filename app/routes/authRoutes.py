@@ -8,4 +8,6 @@ def register():
     bp.route("/")(authController.home)
     bp.route("/about")(authController.about)
     bp.route("/register", methods=["GET", "POST"])(authController.register)
+    bp.route("/admin/dashboard")(authController.admin_dashboard)
+    bp.route("/user/dashboard")(authController.user_dashboard)
     return bp

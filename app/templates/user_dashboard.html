@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Habits</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #F5F0E8;
+            --ink: #1A1612;
+            --gold: #C9A84C;
+            --rust: #B85C38;
+            --paper: #EDE8DC;
+            --brown: #8B6F47;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--cream);
+            color: var(--ink);
+            font-family: 'DM Sans', sans-serif;
+            min-height: 100vh;
+            padding: 48px 40px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 56px;
+            animation: fadeUp 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .eyebrow {
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--brown);
+            margin-bottom: 4px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            letter-spacing: -0.02em;
+        }
+
+        h1 em {
+            font-style: italic;
+            color: var(--rust);
+        }
+
+        .logout {
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(26,22,18,0.4);
+            text-decoration: none;
+            border: 1px solid rgba(26,22,18,0.15);
+            padding: 10px 20px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .logout:hover {
+            border-color: var(--rust);
+            color: var(--rust);
+        }
+
+        .quote-bar {
+            background: var(--ink);
+            color: var(--cream);
+            border-radius: 8px;
+            padding: 24px 28px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            animation: fadeUp 0.6s 0.1s ease forwards;
+            opacity: 0;
+        }
+
+        .quote-line {
+            width: 3px;
+            height: 40px;
+            background: var(--gold);
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        .quote-text {
+            font-size: 13px;
+            line-height: 1.7;
+            color: rgba(245,240,232,0.7);
+            font-style: italic;
+        }
+
+        .quote-author {
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-top: 6px;
+        }
+
+        .section-title {
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: rgba(26,22,18,0.35);
+            margin-bottom: 16px;
+        }
+
+        .habits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .habit-card {
+            background: var(--paper);
+            border: 1px solid rgba(139,111,71,0.15);
+            border-radius: 8px;
+            padding: 24px;
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.15s;
+            animation: fadeUp 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .habit-card:nth-child(1) { animation-delay: 0.2s; }
+        .habit-card:nth-child(2) { animation-delay: 0.3s; }
+        .habit-card:nth-child(3) { animation-delay: 0.4s; }
+
+        .habit-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(26,22,18,0.08);
+        }
+
+        .habit-icon {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .habit-name {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .streak-row {
+            display: flex;
+            gap: 4px;
+            margin-top: 16px;
+        }
+
+        .streak-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(139,111,71,0.15);
+        }
+
+        .streak-dot.done { background: var(--gold); }
+        .streak-dot.today { background: var(--rust); }
+
+        .streak-count {
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 0.1em;
+            color: var(--brown);
+            margin-top: 8px;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div>
+            <p class="eyebrow">My Dashboard</p>
+            <h1>Your <em>habits</em></h1>
+        </div>
+        <a href="/login" class="logout">Logout</a>
+    </header>
+
+    <div class="quote-bar">
+        <div class="quote-line"></div>
+        <div>
+            <p class="quote-text">"Every action you take is a vote for the type of person you wish to become."</p>
+            <p class="quote-author">— James Clear</p>
+        </div>
+    </div>
+
+    <p class="section-title">This Week's Habits</p>
+    <div class="habits-grid">
+        <div class="habit-card">
+            <div class="habit-icon">📖</div>
+            <p class="habit-name">Read 20 pages</p>
+            <div class="streak-row">
+                <div class="streak-dot done"></div>
+                <div class="streak-dot done"></div>
+                <div class="streak-dot done"></div>
+                <div class="streak-dot done"></div>
+                <div class="streak-dot done"></div>
+                <div class="streak-dot today"></div>
+                <div class="streak-dot"></div>
+            </div>
+            <p class="streak-count">6 day streak 🔥</p>
+        </div>
+        <div class="habit-card">
+            <div class="habit-icon">🏃</div>
+            <p class="habit-name">Morning run</p>
+            <div class="streak-row">
+                <div class="streak-dot done"></div>
+                <div class="streak-dot done"></div>
+                <div class="streak-dot done"></div>
+                <div class="streak-dot today"></div>
+                <div class="streak-dot"></div>
+                <div class="streak-dot"></div>
+                <div class="streak-dot"></div>
+            </div>
+            <p class="streak-count">4 day streak 🔥</p>
+        </div>
+        <div class="habit-card">
+            <div class="habit-icon">💧</div>
+            <p class="habit-name">Drink 2L water</p>
+            <div class="streak-row">
+                <div class="streak-dot done"></div>
+                <div class="streak-dot done"></div>
+                <div class="streak-dot today"></div>
+                <div class="streak-dot"></div>
+                <div class="streak-dot"></div>
+                <div class="streak-dot"></div>
+                <div class="streak-dot"></div>
+            </div>
+            <p class="streak-count">3 day streak</p>
+        </div>
+    </div>
+
+    <script>
+        // Click habit card to mark today as done
+        document.querySelectorAll('.habit-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const today = card.querySelector('.streak-dot.today');
+                if (today) {
+                    today.classList.remove('today');
+                    today.classList.add('done');
+                    const count = card.querySelector('.streak-count');
+                    const num = parseInt(count.textContent);
+                    count.textContent = `${num + 1} day streak 🔥`;
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -3,51 +3,529 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forms - Lets learn it  </title>
+    <title>Join — Atomic Habits Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg:        #FAF7F2;
+            --surface:   #F3EEE6;
+            --border:    #E2D9CC;
+            --text:      #2C2416;
+            --muted:     #9E8E78;
+            --accent:    #C4956A;
+            --accent2:   #8BA888;
+            --white:     #FFFFFF;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg);
+            font-family: 'Jost', sans-serif;
+            font-weight: 300;
+            min-height: 100vh;
+            display: flex;
+            color: var(--text);
+        }
+
+        /* ── Left decorative panel ── */
+        .panel {
+            width: 42%;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            padding: 64px 52px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* subtle circle ornament */
+        .panel::before {
+            content: '';
+            position: absolute;
+            bottom: -120px;
+            right: -120px;
+            width: 380px;
+            height: 380px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+        }
+        .panel::after {
+            content: '';
+            position: absolute;
+            bottom: -60px;
+            right: -60px;
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            animation: rise 0.7s 0.1s ease forwards;
+        }
+
+        .logo-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        .logo-name {
+            font-family: 'Jost', sans-serif;
+            font-weight: 200;
+            font-size: 12px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .panel-middle {
+            opacity: 0;
+            animation: rise 0.7s 0.25s ease forwards;
+        }
+
+        .panel-tag {
+            font-family: 'Jost', sans-serif;
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .panel-heading {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(38px, 4vw, 54px);
+            font-weight: 300;
+            line-height: 1.1;
+            color: var(--text);
+            margin-bottom: 28px;
+        }
+
+        .panel-heading em {
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        .panel-quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--muted);
+            border-left: 2px solid var(--border);
+            padding-left: 18px;
+            max-width: 320px;
+        }
+
+        .pillars {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            opacity: 0;
+            animation: rise 0.7s 0.4s ease forwards;
+        }
+
+        .pillar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .pillar-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 11px;
+            color: var(--accent);
+            width: 20px;
+            flex-shrink: 0;
+        }
+
+        .pillar-text {
+            font-size: 12px;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            color: var(--muted);
+        }
+
+        .pillar-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* ── Right form panel ── */
+        .form-side {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 64px 52px;
+        }
+
+        .form-wrap {
+            width: 100%;
+            max-width: 400px;
+            opacity: 0;
+            animation: rise 0.7s 0.3s ease forwards;
+        }
+
+        .form-heading {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 36px;
+            font-weight: 300;
+            letter-spacing: -0.01em;
+            margin-bottom: 6px;
+        }
+
+        .form-sub {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .form-sub a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* two-col name row */
+        .row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .field {
+            margin-bottom: 20px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 9px;
+            font-weight: 400;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+
+        .field input {
+            width: 100%;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 13px 16px;
+            font-family: 'Jost', sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            color: var(--text);
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .field input::placeholder { color: #C8BBAA; }
+
+        .field input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(196,149,106,0.1);
+        }
+
+        /* password strength bar */
+        .strength-bar {
+            height: 2px;
+            background: var(--border);
+            border-radius: 2px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .strength-fill {
+            height: 100%;
+            width: 0%;
+            border-radius: 2px;
+            transition: width 0.4s ease, background 0.4s ease;
+        }
+
+        .strength-label {
+            font-size: 10px;
+            color: var(--muted);
+            margin-top: 5px;
+            min-height: 14px;
+            letter-spacing: 0.05em;
+        }
+
+        .btn {
+            width: 100%;
+            background: var(--text);
+            color: var(--bg);
+            border: none;
+            border-radius: 6px;
+            padding: 15px;
+            font-family: 'Jost', sans-serif;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: background 0.2s, transform 0.15s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent 30%, rgba(196,149,106,0.12) 100%);
+        }
+
+        .btn:hover { background: #3d3025; transform: translateY(-1px); }
+        .btn:active { transform: translateY(0); }
+
+        /* loading spinner state */
+        .btn.loading { pointer-events: none; opacity: 0.7; }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 24px 0;
+        }
+
+        .divider hr {
+            flex: 1;
+            border: none;
+            border-top: 1px solid var(--border);
+        }
+
+        .divider span {
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        /* habit count nudge */
+        .nudge {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 18px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 28px;
+        }
+
+        .nudge-icon {
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .nudge-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--muted);
+        }
+
+        /* error message */
+        .field-error {
+            font-size: 10px;
+            color: #C0614A;
+            margin-top: 5px;
+            letter-spacing: 0.05em;
+            display: none;
+        }
+
+        @keyframes rise {
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0);    }
+        }
+
+        @media (max-width: 768px) {
+            .panel { display: none; }
+            .form-side { padding: 40px 28px; }
+        }
+    </style>
 </head>
 <body>
-    <h1>Form to apply for Habit Tracker</h1>
-    <form action="post">
-        <div>
-        
-        <label for="username">Enter your username</label>
-        <input type="text" id="username" name="username" placeholder="Enter your username">
 
+<!-- ── Left Panel ── -->
+<div class="panel">
+    <div class="logo">
+        <div class="logo-dot"></div>
+        <span class="logo-name">Atomic Habits</span>
+    </div>
+
+    <div class="panel-middle">
+        <p class="panel-tag">Begin your system</p>
+        <h2 class="panel-heading">
+            Build who<br>
+            you want<br>
+            to <em>become.</em>
+        </h2>
+        <p class="panel-quote">
+            "Every action you take is a vote for the type of person you wish to become."
+        </p>
+    </div>
+
+    <div class="pillars">
+        <div class="pillar">
+            <span class="pillar-num">01</span>
+            <span class="pillar-text">Make it obvious</span>
+            <div class="pillar-line"></div>
         </div>
-        <div>  
-        <input type="radio" id="male" name="gender" value="male">
-
-    <label for="male"> Male </label>
-    <input type="radio" id="female" name="gender"   value="male">
-    <label for="female">Female</label>
+        <div class="pillar">
+            <span class="pillar-num">02</span>
+            <span class="pillar-text">Make it attractive</span>
+            <div class="pillar-line"></div>
+        </div>
+        <div class="pillar">
+            <span class="pillar-num">03</span>
+            <span class="pillar-text">Make it easy</span>
+            <div class="pillar-line"></div>
+        </div>
+        <div class="pillar">
+            <span class="pillar-num">04</span>
+            <span class="pillar-text">Make it satisfying</span>
+            <div class="pillar-line"></div>
+        </div>
+    </div>
 </div>
 
-<div>
-    <input type="checkbox" id="subscribe" name="subscribe" value="yes">
-    <label for="subscribe">Subscribe to newsletter</label>
+<!-- ── Form Side ── -->
+<div class="form-side">
+    <div class="form-wrap">
+        <h1 class="form-heading">Create account</h1>
+        <p class="form-sub">Already have one? <a href="/login">Sign in →</a></p>
+
+        <form action="/register" method="POST" id="registerForm" novalidate>
+
+            <div class="row-2">
+                <div class="field">
+                    <label for="first_name">First name</label>
+                    <input type="text" id="first_name" name="first_name" placeholder="James" autocomplete="given-name">
+                    <p class="field-error" id="err-first">Required</p>
+                </div>
+                <div class="field">
+                    <label for="last_name">Last name</label>
+                    <input type="text" id="last_name" name="last_name" placeholder="Clear" autocomplete="family-name">
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="atomic_james" autocomplete="username">
+                <p class="field-error" id="err-user">Required</p>
+            </div>
+
+            <div class="field">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email">
+                <p class="field-error" id="err-email">Enter a valid email</p>
+            </div>
+
+            <div class="field">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" autocomplete="new-password">
+                <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+                <p class="strength-label" id="strengthLabel"></p>
+            </div>
+
+            <div class="field">
+                <label for="confirm_password">Confirm password</label>
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="••••••••" autocomplete="new-password">
+                <p class="field-error" id="err-confirm">Passwords don't match</p>
+            </div>
+
+            <button type="submit" class="btn" id="submitBtn">Start your journey</button>
+        </form>
+
+        <div class="nudge">
+            <span class="nudge-icon">🌱</span>
+            <p class="nudge-text">1% better every day — that's 37× better by the end of the year.</p>
+        </div>
+    </div>
 </div>
-<div>
-    <label for="comment">Enter your comment</label>
-    <br>
-    <textarea id="comment" name="comment" rows="4" cols="50">Enter your comment here...
-    </textarea>
-</div>
-    <select name="Habits">
 
+<script>
+    // ── Password strength ──
+    const pwInput  = document.getElementById('password');
+    const fill     = document.getElementById('strengthFill');
+    const label    = document.getElementById('strengthLabel');
 
+    const levels = [
+        { min: 0,  color: '#E2D9CC', text: '',             pct: 0   },
+        { min: 1,  color: '#C0614A', text: 'Weak',         pct: 25  },
+        { min: 6,  color: '#C4956A', text: 'Fair',         pct: 50  },
+        { min: 10, color: '#8BA888', text: 'Good',         pct: 75  },
+        { min: 14, color: '#5C8A72', text: 'Strong ✓',     pct: 100 },
+    ];
 
-<option value="thirty days">Thirty days</option>
-<option value="fifty days">Fifty days</option>
-<option value="one hundered eighty days">Eighty days</option>
+    pwInput.addEventListener('input', () => {
+        const len = pwInput.value.length;
+        const lvl = [...levels].reverse().find(l => len >= l.min);
+        fill.style.width      = lvl.pct + '%';
+        fill.style.background = lvl.color;
+        label.textContent     = lvl.text;
+        label.style.color     = lvl.color;
+    });
 
-    </select>
-  
-   
+    // ── Form validation ──
+    document.getElementById('registerForm').addEventListener('submit', e => {
+        let valid = true;
 
+        const show = (id, show) => {
+            document.getElementById(id).style.display = show ? 'block' : 'none';
+        };
 
-</div>
+        const fn = document.getElementById('first_name').value.trim();
+        show('err-first', !fn); if (!fn) valid = false;
 
-    </form>
-    
+        const un = document.getElementById('username').value.trim();
+        show('err-user', !un); if (!un) valid = false;
+
+        const em = document.getElementById('email').value.trim();
+        const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em);
+        show('err-email', !emailOk); if (!emailOk) valid = false;
+
+        const pw  = document.getElementById('password').value;
+        const cpw = document.getElementById('confirm_password').value;
+        const mismatch = pw !== cpw || cpw === '';
+        show('err-confirm', mismatch); if (mismatch) valid = false;
+
+        if (!valid) {
+            e.preventDefault();
+            return;
+        }
+
+        // loading state
+        const btn = document.getElementById('submitBtn');
+        btn.textContent = 'Creating account…';
+        btn.classList.add('loading');
+    });
+
+    // ── Clear errors on input ──
+    document.querySelectorAll('input').forEach(inp => {
+        inp.addEventListener('input', () => {
+            const err = inp.closest('.field').querySelector('.field-error');
+            if (err) err.style.display = 'none';
+        });
+    });
+</script>
+
 </body>
 </html>
