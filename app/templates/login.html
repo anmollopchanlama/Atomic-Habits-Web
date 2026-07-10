@@ -490,6 +490,7 @@
             </div>
 
             <form action="/login" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ session['csrf_token']}}">
                 <div class="form-group">
                     <label class="form-label" for="username">Username</label>
                     <input 

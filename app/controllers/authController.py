@@ -28,7 +28,13 @@ def login():
 
 @admin_required
 def admin_dashboard():
-    return render_template('admin_dashboard.html')
+    connection = get_connection()
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM users")
+    users = cursor.fetchall()
+    cursor.close()
+    connection.close()
+    return render_template('admin_dashboard.html', users=users)
 
 @login_required
 def user_dashboard():
@@ -41,4 +47,33 @@ def about():
     return render_template('about.html')
 
 def register():
+    if request.method == "POST":
+        first_name = request.form.get('first_name')
+        last_name = request.form.get('last_name')
+        username = request.form.get('username')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        confirm_password = request.form.get('confirm_password')
+
+        if password != confirm_password:
+            flash("Passwords do not match.", "error")
+            return redirect(url_for('auth.register'))
+
+        try:
+            connection = get_connection()
+            cursor = connection.cursor()
+            cursor.execute(
+                "INSERT INTO users (first_name, last_name, username, email, password, role) VALUES (%s, %s, %s, %s, %s, 'user')",
+                (first_name, last_name, username, email, password)
+            )
+            connection.commit()
+            cursor.close()
+            connection.close()
+            flash("Account created! Please sign in.", "success")
+            return redirect(url_for('auth.login'))
+        except Exception as e:
+            print(e)
+            flash("Username or email already exists.", "error")
+            return redirect(url_for('auth.register'))
+
     return render_template('register.html')
