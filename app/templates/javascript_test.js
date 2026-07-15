@@ -1,29 +1,41 @@
-alert("Hello World");
+console.log("This is for test")
 
-console.log("Code is running")
-console.log("Code is also running....")
-console.log("Code is running............")
+var a = 5;
 
+let b = 6;
+let c = "Henry";
+let _a = "Rogers";
 
-var a = prompt("Enter your number")
-var isTrue = confirm("Are you sure you want to leave this page? ")
+console.log(a + b + 8 )
+console.log( typeof a, typeof b, typeof c);
 
-if(isTrue){
-    console.log("User is leaving")
-
+{
+    // var a = 66;
+    console.log(a)
 }
+console.log(a)
 
-else{
-    console.log("User is not leaving")
+// const a1 = 6;
+// a1 = a1 + 1;
+
+let x = "Henry White";
+let y =  22;
+let z = 3.55;
+const p = true;
+
+let q = undefined;
+let r = null;
+
+console.log(x , y, z, p, q, r)
+console.log(typeof x, typeof y, typeof z, typeof p, typeof q, typeof r )
+
+let o = {
+    name:"Henry", 
+    "job role": 56334,
+    "is_admin": true
 }
-
-
-
-
-
-console.log("Your number is " + a)
-
-document.title = "Hey I am Good"
-
-document.body.style.backgroundColor = "red"
-
+console.log(o);
+o.salary = "100k"
+console.log(o);
+console.log(o);
+o.salary = "500k";
