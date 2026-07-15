@@ -35,7 +35,19 @@ let o = {
     "is_admin": true
 }
 console.log(o);
-o.salary = "100k"
-console.log(o);
+o.salary = "100k";
 console.log(o);
 o.salary = "500k";
+console.log(o);
+
+let n  = {
+    name:"Gordon",
+    job_role : 48234,
+    is_admin : false
+}
+
+console.log(n);
+n.salary = "50k";
+console.log(n);
+n.salary = "100k";
+console.log(n);
