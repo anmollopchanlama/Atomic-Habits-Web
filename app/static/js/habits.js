@@ -1,0 +1,1 @@
+console.log("Habits page loaded");
