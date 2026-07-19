@@ -7,6 +7,21 @@
 </head>
 <body>
     <h1>My Habits</h1>
+    <p class="eyebrow">Track your daily habits</p>
+    <a href="/user/dashboard">← Back to Dashboard</a>
+
+    <div class="habits-container">
+        <div class="habit-form">
+            <h2>Add New Habit</h2>
+            <input type="text" id="habitName" placeholder="Habit name e.g. Read 20 pages">
+            <input type="text" id="habitIdentity" placeholder="Identity e.g. I am a reader">
+            <button id="addHabit">Add Habit</button>
+        </div>
+
+        <div class="habits-list" id="habitsList">
+            <!-- habits will load here -->
+        </div>
+    </div>
     <script src="{{ url_for('static', filename='js/habits.js') }}"></script>
 </body>
 </html>
