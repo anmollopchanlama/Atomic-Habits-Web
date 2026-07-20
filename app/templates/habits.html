@@ -2,25 +2,52 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Habits</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/habits.css') }}">
 </head>
 <body>
-    <h1>My Habits</h1>
-    <p class="eyebrow">Track your daily habits</p>
-    <a href="/user/dashboard">← Back to Dashboard</a>
+
+    <header>
+    <div>
+        <p class="eyebrow">Habit Tracker</p>
+        <h1>My <em>Habits</em></h1>
+
+    </div>
+    <a href="/user/dashboard" class="back-btn">← Dashboard</a>
+    </header>
+      
 
     <div class="habits-container">
         <div class="habit-form">
             <h2>Add New Habit</h2>
-            <input type="text" id="habitName" placeholder="Habit name e.g. Read 20 pages">
-            <input type="text" id="habitIdentity" placeholder="Identity e.g. I am a reader">
-            <button id="addHabit">Add Habit</button>
+
+            <form action="/user/habits/add" method="POST">
+                <input type="text" name="habitName" placeholder="Habit name e.g. Read 20 pages" required>
+                <input type="text" name="habitIdentity" placeholder="Identity e.g. I am a reader">
+
+                <input type="text" name="habitIcon" placeholder="Icon e.g. 📖">
+                <button type="submit">Add Habit</button>
+            </form>
         </div>
 
         <div class="habits-list" id="habitsList">
-            <!-- habits will load here -->
+            {% for habit in habits %}
+            <div class="habit-card">
+                <span class="habit-icon">{{ habit.icon }}</span>
+                <p class="habit-name">{{ habit.name }}</p>
+                <p class="habit-identity">{{ habit.identity }}</p>
+                <form action="/user/habits/delete/{{ habit.id }}" method="POST">
+                    <button type="submit" class="delete-btn">Delete</button>
+                </form>
+            </div>
+            {% endfor %}
+            {% if not habits %}
+            <p class="empty-msg">No habits yet. Add your first one! 🌱</p>
+            {% endif %}
         </div>
+
     </div>
     <script src="{{ url_for('static', filename='js/habits.js') }}"></script>
 </body>
