@@ -79,8 +79,10 @@ def register():
 
     return render_template('register.html')
 
-@login_required
+
 def habits():
+    if 'id' not in session:
+        return redirect(url_for('auth.login'))
     connection = get_connection()
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM habits WHERE user_id = %s", (session['id'],))
@@ -89,8 +91,10 @@ def habits():
     connection.close()
     return render_template('habits.html', habits=habits)
 
-@login_required
+
 def add_habit():
+    if 'id' not in session:
+        return redirect(url_for('auth.login'))
     name = request.form.get('habitName')
     identity = request.form.get('habitIdentity')
     icon = request.form.get('habitIcon')
@@ -105,8 +109,11 @@ def add_habit():
     connection.close()
     return redirect(url_for('auth.habits'))
 
-@login_required
+
+
 def delete_habit(habit_id):
+    if 'id' not in session:
+        return redirect(url_for('auth.login'))
     connection = get_connection()
     cursor = connection.cursor()
     cursor.execute("DELETE FROM habits WHERE id = %s AND user_id = %s", (habit_id, session['id']))
@@ -114,3 +121,26 @@ def delete_habit(habit_id):
     cursor.close()
     connection.close()
     return redirect(url_for('auth.habits'))
+
+def edit_habit(habit_id):
+    if 'id' not in session:
+        return redirect(url_for('auth.login'))
+    connection = get_connection()
+    cursor = connection.cursor()
+    if request.method == "POST":
+        name = request.form.get('habitName')
+        identity = request.form.get('habitIdentity')
+        icon = request.form.get('habitIcon')
+        cursor.execute(
+            "UPDATE habits SET name=%s, identity=%s, icon=%s WHERE id=%s AND user_id=%s",
+            (name, identity, icon, habit_id, session['id'])
+        )
+        connection.commit()
+        cursor.close()
+        connection.close()
+        return redirect(url_for('auth.habits'))
+    cursor.execute("SELECT * FROM habits WHERE id=%s AND user_id=%s", (habit_id, session['id']))
+    habit = cursor.fetchone()
+    cursor.close()
+    connection.close()
+    return render_template('edit_habit.html', habit=habit)
