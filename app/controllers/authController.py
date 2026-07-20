@@ -17,6 +17,7 @@ def login():
         if user:
             session['username'] = user['username']
             session['role'] = user['role']
+            session['id'] = user['id']
             if user['role'] == 'admin':
                 return redirect(url_for('auth.admin_dashboard'))
             else:
@@ -77,3 +78,39 @@ def register():
             return redirect(url_for('auth.register'))
 
     return render_template('register.html')
+
+@login_required
+def habits():
+    connection = get_connection()
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM habits WHERE user_id = %s", (session['id'],))
+    habits = cursor.fetchall()
+    cursor.close()
+    connection.close()
+    return render_template('habits.html', habits=habits)
+
+@login_required
+def add_habit():
+    name = request.form.get('habitName')
+    identity = request.form.get('habitIdentity')
+    icon = request.form.get('habitIcon')
+    connection = get_connection()
+    cursor = connection.cursor()
+    cursor.execute(
+        "INSERT INTO habits (user_id, name, identity, icon) VALUES (%s, %s, %s, %s)",
+        (session['id'], name, identity, icon)
+    )
+    connection.commit()
+    cursor.close()
+    connection.close()
+    return redirect(url_for('auth.habits'))
+
+@login_required
+def delete_habit(habit_id):
+    connection = get_connection()
+    cursor = connection.cursor()
+    cursor.execute("DELETE FROM habits WHERE id = %s AND user_id = %s", (habit_id, session['id']))
+    connection.commit()
+    cursor.close()
+    connection.close()
+    return redirect(url_for('auth.habits'))
