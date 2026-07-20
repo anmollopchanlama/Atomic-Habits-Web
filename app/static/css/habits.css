@@ -1,10 +1,12 @@
 :root {
+
     --cream: #FAF7F2;
     --ink: #2C2416;
-    --accent: #C4956A;
-    --border: #E2D9CC;
+    --gold: #C9A84C;
+    --rust: #B85C38;
     --paper: #F3EEE6;
-    --muted: #9E8E78;
+    --brown: #8B6F47;
+
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -15,4 +17,174 @@ body {
     font-family: 'DM Sans', sans-serif;
     min-height: 100vh;
     padding: 48px 40px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 48px;
+    animation: fadeUp 0.6s ease forwards;
+    opacity: 0;
+}
+
+.eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--brown);
+    margin-bottom: 4px;
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    letter-spacing: -0.02em;
+}
+
+h1 em { font-style: italic; color: var(--rust); }
+
+.back-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(26,22,18,0.4);
+    text-decoration: none;
+    border: 1px solid rgba(26,22,18,0.15);
+    padding: 10px 20px;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.back-btn:hover { border-color: var(--rust); color: var(--rust); }
+
+.habits-container {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 32px;
+    align-items: start;
+}
+
+.habit-form {
+    background: var(--paper);
+    border: 1px solid rgba(139,111,71,0.15);
+    border-radius: 8px;
+    padding: 28px;
+    animation: fadeUp 0.6s 0.1s ease forwards;
+    opacity: 0;
+}
+
+.habit-form h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+}
+
+.habit-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.habit-form input {
+    background: var(--cream);
+    border: 1px solid rgba(139,111,71,0.2);
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.habit-form input:focus { border-color: var(--gold); }
+.habit-form input::placeholder { color: rgba(26,22,18,0.3); }
+
+.habit-form button {
+    background: var(--ink);
+    color: var(--cream);
+    border: none;
+    border-radius: 6px;
+    padding: 13px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    margin-top: 4px;
+}
+
+.habit-form button:hover { background: #2d2620; transform: translateY(-1px); }
+
+.habits-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    animation: fadeUp 0.6s 0.2s ease forwards;
+    opacity: 0;
+}
+
+.habit-card {
+    background: var(--paper);
+    border: 1px solid rgba(139,111,71,0.15);
+    border-radius: 8px;
+    padding: 24px;
+    transition: transform 0.15s, box-shadow 0.15s;
+    position: relative;
+}
+
+.habit-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(26,22,18,0.08);
+}
+
+.habit-icon { font-size: 28px; margin-bottom: 12px; display: block; }
+
+.habit-name {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.habit-identity {
+    font-size: 12px;
+    color: var(--brown);
+    font-style: italic;
+    margin-bottom: 16px;
+}
+
+.delete-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--rust);
+    background: none;
+    border: 1px solid rgba(184,92,56,0.2);
+    border-radius: 4px;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.delete-btn:hover { background: var(--rust); color: var(--cream); }
+
+.empty-msg {
+    font-size: 14px;
+    color: var(--brown);
+    font-style: italic;
+    opacity: 0.6;
+    grid-column: 1/-1;
+    text-align: center;
+    padding: 40px;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
