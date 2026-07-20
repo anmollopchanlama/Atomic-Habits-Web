@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Habit</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/habits.css') }}">
+</head>
+<body>
+    <header>
+        <div>
+            <p class="eyebrow">Habit Tracker</p>
+            <h1>Edit <em>Habit</em></h1>
+        </div>
+        <a href="/user/habits" class="back-btn">← Back</a>
+    </header>
+
+    <div class="habits-container">
+        <div class="habit-form">
+            <h2>Update Habit</h2>
+            <form action="/user/habits/edit/{{ habit.id }}" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ session['csrf_token'] }}">
+                <input type="text" name="habitName" value="{{ habit.name }}" required>
+                <input type="text" name="habitIdentity" value="{{ habit.identity }}">
+                <input type="text" name="habitIcon" value="{{ habit.icon }}">
+                <button type="submit">Save Changes</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
