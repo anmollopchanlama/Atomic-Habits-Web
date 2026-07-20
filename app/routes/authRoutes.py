@@ -10,4 +10,8 @@ def register():
     bp.route("/register", methods=["GET", "POST"])(authController.register)
     bp.route("/admin/dashboard")(authController.admin_dashboard)
     bp.route("/user/dashboard")(authController.user_dashboard)
+    bp.route("/user/habits", methods=["GET"])(authController.habits)
+    bp.route("/user/habits/add", methods=["POST"])(authController.add_habit)
+    bp.route("/user/habits/delete/<int:habit_id>", methods=["POST"])(authController.delete_habit)
     return bp
+
