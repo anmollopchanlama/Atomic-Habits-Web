@@ -38,10 +38,14 @@
                 <span class="habit-icon">{{ habit.icon }}</span>
                 <p class="habit-name">{{ habit.name }}</p>
                 <p class="habit-identity">{{ habit.identity }}</p>
+
                 <form action="/user/habits/delete/{{ habit.id }}" method="POST">
                     <input type="hidden" name="csrf_token" value="{{ session['csrf_token'] }}">
                     <button type="submit" class="delete-btn">Delete</button>
                 </form>
+
+                <a href="/user/habits/edit/{{ habit.id }}" class="delete-btn" style="text-decoration:none; display:inline-block; margin-top:8px; color: var(--brown); border-color: var(--brown);">Edit</a>    
+
             </div>
             {% endfor %}
             {% if not habits %}
