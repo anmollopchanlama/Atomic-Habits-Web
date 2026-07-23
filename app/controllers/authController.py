@@ -39,8 +39,23 @@ def admin_dashboard():
 
 @login_required
 def user_dashboard():
-    return render_template('user_dashboard.html')
+    connection = get_connection()
+    cursor = connection.cursor()
 
+    cursor.execute(
+        "SELECT * FROM habits WHERE user_id = %s",
+        (session['id'],)
+    )
+
+    habits = cursor.fetchall()
+
+    cursor.close()
+    connection.close()
+
+    return render_template(
+        'user_dashboard.html',
+        habits=habits
+    )
 def home():
     return render_template('home.html')
 
