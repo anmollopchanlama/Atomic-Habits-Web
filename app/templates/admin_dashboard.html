@@ -1,72 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_dashboard.css') }}">
-</head>
-<body>
+{% extends 'base.html' %}
 
-    <header>
-        <div class="brand">
-            <span class="eyebrow">Admin Panel</span>
-            <h1>Dashboard</h1>
-        </div>
-        <a href="{{ url_for('auth.logout') }}" class="logout">Logout</a>
-    </header>
+{% block title %}Admin Dashboard{% endblock %}
 
-    <div class="stats-grid">
-        <div class="stat-card">
-            <p class="stat-label">Total Users</p>
-            <p class="stat-value gold">{{ users | length }}</p>
-        </div>
-        <div class="stat-card">
-            <p class="stat-label">Active Habits</p>
-            <p class="stat-value">14</p>
-        </div>
-        <div class="stat-card">
-            <p class="stat-label">Avg Streak</p>
-            <p class="stat-value rust">7</p>
-        </div>
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin_dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+<header>
+    <div class="brand">
+        <span class="eyebrow">Admin Panel</span>
+        <h1>Dashboard</h1>
     </div>
+</header>
 
-    <p class="section-title">Registered Users</p>
-    <input id="searchInput" type="text" placeholder="Search users..." style="
-        background: rgba(245,240,232,0.05);
-        border: 1px solid rgba(245,240,232,0.1);
-        border-radius: 4px;
-        padding: 10px 16px;
-        color: var(--cream);
-        font-family: 'DM Sans', sans-serif;
-        font-size: 13px;
-        width: 100%;
-        margin-bottom: 16px;
-        outline: none;
-    ">
+<div class="stats-grid">
+    <div class="stat-card">
+        <p class="stat-label">Total Users</p>
+        <p class="stat-value gold">{{ users | length }}</p>
+    </div>
+    <div class="stat-card">
+        <p class="stat-label">Active Habits</p>
+        <p class="stat-value">14</p>
+    </div>
+    <div class="stat-card">
+        <p class="stat-label">Avg Streak</p>
+        <p class="stat-value rust">7</p>
+    </div>
+</div>
 
-    <table class="users-table">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Role</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for user in users %}
-            <tr>
-                <td>{{ loop.index }}</td>
-                <td>{{ user.username }}</td>
-                <td>{{ user.email or '—' }}</td>
-                <td><span class="badge {{ user.role }}">{{ user.role }}</span></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<p class="section-title">Registered Users</p>
+<input id="searchInput" type="text" placeholder="Search users..." style="
+    background: rgba(245,240,232,0.05);
+    border: 1px solid rgba(245,240,232,0.1);
+    border-radius: 4px;
+    padding: 10px 16px;
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    width: 100%;
+    margin-bottom: 16px;
+    outline: none;
+">
 
-    <script src="{{ url_for('static', filename='js/admin_dashboard.js') }}"></script>
-</body>
-</html>
+<table class="users-table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Role</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email or '—' }}</td>
+            <td><span class="badge {{ user.role }}">{{ user.role }}</span></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/admin_dashboard.js') }}"></script>
+{% endblock %}
