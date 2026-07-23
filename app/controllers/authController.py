@@ -18,6 +18,9 @@ def login():
             session['username'] = user['username']
             session['role'] = user['role']
             session['id'] = user['id']
+
+            flash("Logged in successfully!", "success")
+            
             if user['role'] == 'admin':
                 return redirect(url_for('auth.admin_dashboard'))
             else:
