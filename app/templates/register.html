@@ -410,7 +410,7 @@
 <div class="form-side">
     <div class="form-wrap">
         <h1 class="form-heading">Create account</h1>
-        <p class="form-sub">Already have one? <a href="/login">Sign in →</a></p>
+        <p class="form-sub">Already have one? <a href="{{ url_for('auth.login') }}">Sign in →</a></p>
 
         <form action="/register" method="POST" id="registerForm" novalidate>
 
