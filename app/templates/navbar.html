@@ -1,0 +1,20 @@
+<nav class="navbar">
+    <div class="nav-brand">
+        <span class="nav-dot"></span>
+        <a href="{{ url_for('auth.home') }}" class="nav-logo">Atomic Habits</a>
+    </div>
+    <div class="nav-links">
+        {% if session.get('username') %}
+            <a href="{{ url_for('auth.user_dashboard') }}" class="nav-link">Dashboard</a>
+            <a href="{{ url_for('auth.habits') }}" class="nav-link">My Habits</a>
+            <a href="{{ url_for('auth.about') }}" class="nav-link">About</a>
+            {% if session.get('role') == 'admin' %}
+                <a href="{{ url_for('auth.admin_dashboard') }}" class="nav-link">Admin</a>
+            {% endif %}
+            <a href="{{ url_for('auth.logout') }}" class="nav-logout">Logout</a>
+        {% else %}
+            <a href="{{ url_for('auth.login') }}" class="nav-link">Sign In</a>
+            <a href="{{ url_for('auth.register') }}" class="nav-link nav-register">Get Started</a>
+        {% endif %}
+    </div>
+</nav>
