@@ -1,0 +1,90 @@
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background: rgba(245, 240, 232, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(139,111,71,0.1);
+    transition: box-shadow 0.3s;
+}
+
+.navbar.scrolled {
+    box-shadow: 0 4px 24px rgba(26,22,18,0.08);
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #C9A84C;
+}
+
+.nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: #1A1612;
+    text-decoration: none;
+    letter-spacing: -0.01em;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(26,22,18,0.5);
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.nav-link:hover {
+    color: #1A1612;
+    background: rgba(139,111,71,0.08);
+}
+
+.nav-logout {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(26,22,18,0.4);
+    text-decoration: none;
+    border: 1px solid rgba(26,22,18,0.15);
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.nav-logout:hover {
+    border-color: #B85C38;
+    color: #B85C38;
+}
+
+.nav-register {
+    background: #1A1612;
+    color: #F5F0E8 !important;
+    padding: 8px 20px;
+}
+
+.nav-register:hover {
+    background: #2d2620 !important;
+    color: #F5F0E8 !important;
+}

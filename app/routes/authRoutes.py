@@ -14,5 +14,6 @@ def register():
     bp.route("/user/habits/add", methods=["POST"])(authController.add_habit)
     bp.route("/user/habits/delete/<int:habit_id>", methods=["POST"])(authController.delete_habit)
     bp.route("/user/habits/edit/<int:habit_id>", methods=["GET", "POST"])(authController.edit_habit)
+    bp.route("/logout")(authController.logout)
     return bp
 

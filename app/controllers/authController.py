@@ -146,5 +146,5 @@ def edit_habit(habit_id):
     return render_template('edit_habit.html', habit=habit)
 
 def logout():
-session.clear()
-return redirect(url_for('auth.login'))
+    session.clear()
+    return redirect(url_for('auth.login'))

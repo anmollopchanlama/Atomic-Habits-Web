@@ -1,31 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Edit Habit</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/habits.css') }}">
-</head>
-<body>
-    <header>
-        <div>
-            <p class="eyebrow">Habit Tracker</p>
-            <h1>Edit <em>Habit</em></h1>
-        </div>
-        <a href="{{ url_for('auth.habits') }}" class="back-btn">← Back</a>
-    </header>
+{% extends 'base.html' %}
 
-    <div class="habits-container">
-        <div class="habit-form">
-            <h2>Update Habit</h2>
-            <form action="{{ url_for('auth.edit_habit', habit_id=habit.id) }}" method="POST"></form>
-                <input type="hidden" name="csrf_token" value="{{ session['csrf_token'] }}">
-                <input type="text" name="habitName" value="{{ habit.name }}" required>
-                <input type="text" name="habitIdentity" value="{{ habit.identity }}">
-                <input type="text" name="habitIcon" value="{{ habit.icon }}">
-                <button type="submit">Save Changes</button>
-            </form>
-        </div>
+{% block title %}Edit Habit{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/habits.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="habits-container">
+    <div class="habit-form">
+        <h2>Update Habit</h2>
+        <form action="{{ url_for('auth.edit_habit', habit_id=habit.id) }}" method="POST">
+            <input type="hidden" name="csrf_token" value="{{ session['csrf_token'] }}">
+            <input type="text" name="habitName" value="{{ habit.name }}" required>
+            <input type="text" name="habitIdentity" value="{{ habit.identity }}">
+            <input type="text" name="habitIcon" value="{{ habit.icon }}">
+            <button type="submit">Save Changes</button>
+        </form>
     </div>
-</body>
-</html>
+</div>
+{% endblock %}
