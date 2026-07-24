@@ -11,8 +11,11 @@
 
     <header>
         <div>
-            <p class="eyebrow">My Dashboard</p>
-            <h1>Your <em>habits</em></h1>
+        <p class="eyebrow">Welcome back, {{ session['username'] }} 👋</p>
+        <h1>Your <em>habits</em></h1>
+        <p class="dashboard-subtitle">
+         Keep showing up. Small actions become remarkable results.
+        </p>
         </div>
         <div style="display:flex; gap:12px;">
             <a href="{{ url_for('auth.habits') }}" class="logout">My Habits</a>
@@ -26,6 +29,23 @@
         <div>
             <p class="quote-text">"Every action you take is a vote for the type of person you wish to become."</p>
             <p class="quote-author">— James Clear</p>
+        </div>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>{{ total_habits }}</h3>
+            <p>Total Habits</p>
+        </div>
+    
+        <div class="stat-card">
+            <h3>{{ total_streak }}</h3>
+            <p>Total Streak Days</p>
+        </div>
+    
+        <div class="stat-card">
+            <h3>{{ longest_streak }}</h3>
+            <p>Longest Streak</p>
         </div>
     </div>
 
