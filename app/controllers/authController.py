@@ -20,7 +20,7 @@ def login():
             session['id'] = user['id']
 
             flash("Logged in successfully!", "success")
-            
+
             if user['role'] == 'admin':
                 return redirect(url_for('auth.admin_dashboard'))
             else:
@@ -52,13 +52,21 @@ def user_dashboard():
 
     habits = cursor.fetchall()
 
+    total_habits = len(habits)
+    total_streak = sum(habit['streak'] for habit in habits)
+    longest_streak = max((habit['streak'] for habit in habits), default=0)
+
     cursor.close()
     connection.close()
 
     return render_template(
-        'user_dashboard.html',
-        habits=habits
+    'user_dashboard.html',
+    habits=habits,
+    total_habits=total_habits,
+    total_streak=total_streak,
+    longest_streak=longest_streak
     )
+    
 def home():
     return render_template('home.html')
 
